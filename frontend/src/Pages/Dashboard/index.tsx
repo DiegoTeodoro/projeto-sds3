@@ -8,8 +8,7 @@ const Dashboard = () => {
     return (
         <>
             <NavBar />
-            <div>
-                <div className="container" />
+            <div className="container">
                 <h1 className="text-primary py-3">Dashboard de Vendas</h1>
 
                 <div className="row px-3">
@@ -28,7 +27,6 @@ const Dashboard = () => {
                 </div>
 
                 <DataTable />
-
             </div>
             <Footer />
         </>

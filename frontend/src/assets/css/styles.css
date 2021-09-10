@@ -30,3 +30,9 @@ html, body {
 .text-primary {
     color: var(--color-primary) !important;
 }
+
+.footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
