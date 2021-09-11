@@ -1,6 +1,6 @@
 import BarChart from "components/BarChart";
 import DataTable from "components/DataTable";
-import DonutChart from "components/DonutChart";
+import DonutsChart from "components/DonutsChart";
 import Footer from "components/Footer";
 import NavBar from "components/NavBar";
 
@@ -17,7 +17,7 @@ const Dashboard = () => {
                     </div>
                     <div className="col-sm-5">
                         <h5 className="text-center text-secondary">Taxa de sucesso</h5>
-                        <DonutsChart/>
+                        <DonutsChart />
                     </div>
                     <div className="py-3">
                         <h2 className="text-primary">Todas vendas</h2>
