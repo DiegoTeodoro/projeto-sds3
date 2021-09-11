@@ -1,58 +1,60 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Chart from "react-apexcharts";
-import { SaleSucess } from "types/sale";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
+import { SaleSucess } from 'types/sale';
+import { round } from 'utils/format';
 
-import { round } from "utils/format";
-import { BASE_URL } from "utils/requests";
+import { BASE_URL } from 'utils/requests';
 
 type SeriesData = {
     name: string;
     data: number[];
 }
 
+
 type ChartData = {
     labels: {
-        categories: string[];
-    };
-    series: SeriesData[];
+        categories: string [];
+    }
+    series:SeriesData[];
+
 }
 
 const BarChart = () => {
-
-    const [chartData, setChartData] = useState<ChartData>({
+    const [chartData,setChartData]= useState<ChartData>(
+        {
         labels: {
             categories: []
         },
         series: [
             {
                 name: "",
-                data: []
+                data: []                   
             }
-
         ]
-    });
-    useEffect(() => {
-        axios.get('${BASE_URL}/sales/success-by-seller')
-            .then(response => {
-                const data = response.data as SaleSucess
-                const myLabels = data.map(x => x.sellerName);
-                const mySeries = data.map(x => round(100.0 * x.deals / x.visited, 1));
+    })
 
+    useEffect(() => {
+        axios.get(`${BASE_URL}/Sales/sucess-by-seller`)
+            .then(response => {
+                const data = response.data as SaleSucess[];
+                const myLabels = data.map(x => x.sellerName);
+                const mySeries = data.map(x => round((100.0 * x.deals) / x.visited,1));
                 setChartData({
                     labels: {
                         categories: myLabels
                     },
                     series: [
                         {
-                            name: "% Success",
+                            name: "% de Sucesso",
                             data: mySeries                   
                         }
                     ]
                 });
-            });
-    }, []);
 
+            })
+    }, []);
+    
     const options = {
         plotOptions: {
             bar: {
@@ -60,15 +62,18 @@ const BarChart = () => {
             }
         },
     };
-
+    
+   
+    
     return (
-       <Chart  
-            options={{ ...options, xaxis: chartData.labels}}
-            series={chartData.series}
-            type="bar"
-            height="240"
-       />
+        <Chart
+        options = {{ ...options, xaxis: chartData.labels}}
+        series = {chartData.series}
+        type = "bar"
+        heigth = "240"
+        
+        />
     );
 }
-    
+
 export default BarChart;
